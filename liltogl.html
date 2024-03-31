@@ -7,16 +7,22 @@
     <style>
         body {
             font-family: system-ui, sans-serif;
+        }
+        
+          label.toggle {
+            display: inline-block;
+            width: 20ch; /* optionally add width to right-align toggles */
           }
-          
-          .toggle {
+
+          /* Begin Toggle CSS */
+
+          label.toggle {
               cursor: pointer;
               user-select: none;
               display: inline-block;
-              width: fit-content;
           }
           
-            .toggle > input[type="checkbox"] {
+            label.toggle > input[type="checkbox"] {
                 vertical-align: top;
                 margin-right: 1ex;
             }
@@ -24,12 +30,12 @@
           @supports(selector(:has(p))) {
           
             /* label */
-            .toggle {
+            label.toggle {
               --width: 2rem;
               --height: calc(var(--width) / 2);
               --border-radius: var(--height);
 
-              /* Customize colors here */
+              /* Customize style here */
               --track-color: lightgrey;
               --track-color-selected: blue;
               --indicator-color: white;
@@ -40,12 +46,12 @@
             }
           
             /* checkbox */
-            .toggle > input[type="checkbox"] {
+            label.toggle > input[type="checkbox"] {
               display: none;
             }
           
             /* toggle track */
-            .toggle::after {
+            label.toggle::after {
               content: "";
               background-color: var(--track-color);
               width: var(--width);
@@ -55,13 +61,13 @@
               border-radius: var(--border-radius);
               border: 1px solid var(--track-color);
             }
-            .toggle:has( > input[type="checkbox"]:checked )::after {
+            label.toggle:has( > input[type="checkbox"]:checked )::after {
               background-color: var(--track-color-selected);
               border-color: var(--track-color-selected);
             }
           
             /* toggle indicator */
-            .toggle::before {
+            label.toggle::before {
                 content: "";
               position: absolute;
               right: calc( (var(--width) / 2) );
@@ -70,15 +76,17 @@
               height: var(--height);
               background: white;
               border-radius: var(--border-radius);
-              transition: 0.1s;
+              transition: 0.2s;
               background-color: var(--indicator-color);
               z-index: 5;
             }
-            .toggle:has( > input[type="checkbox"]:checked )::before {
+            label.toggle:has( > input[type="checkbox"]:checked )::before {
               right: 2px;
               background-color: var(--indicator-color-selected);
             }
           }
+
+          /* End Toggle CSS */
     </style>
 </head>
 <body>
@@ -89,14 +97,20 @@
         <li>Uses the CSS <code>:has</code> pseudo element selector.</li>
         <li>If that CSS is feature is not available, falls back to semantically correct <code>&lt;label&gt;</code> and <code>&lt;input type=&quot;checkbox&quot;&gt;</code>. No fluff elements.</li>
         <li>Checkbox on left side of the label, toggle on right side of the label.</li>
-        <li>Customize with CSS variables.</li>
+        <li>Customize with scoped CSS variables.</li>
     </ul>
 
-<p><label class="toggle" for="check1"><input type="checkbox" id="check1">Feature 1</label></p>
+    <form>
 
-<p><label class="toggle" for="check2"><input type="checkbox" id="check2">Feature 2</label></p>
+      <p><label class="toggle" for="check1"><input type="checkbox" id="check1" name="check1">Feature 1</label></p>
 
-<p><label class="toggle" for="check3"><input type="checkbox" id="check3">Toggle this</label></p>
+      <p><label class="toggle" for="check2"><input type="checkbox" id="check2" name="check2">Feature 2</label></p>
+      
+      <p><label class="toggle" for="check3"><input type="checkbox" id="check3" name="check3" checked>Pre-selected</label></p>
+      
+      <input type="submit">
+
+    </form>
 
 
 </body>
